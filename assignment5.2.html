@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment 5.2</title>
+
+
+<style>
+
+    td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+    tr:hover {background-color: #ddd;}
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+
+button {
+    background-color: #04AA6D;   
+    color: white;                
+    border-radius: 8px;          
+    padding: 10px 20px;        
+    margin: 5px;                 
+}
+
+
+button:hover {
+    background-color: #038d5a;    
+}
+
+
+</style>
+
+
+
+
+
+    
+</head>
+<body>
+
+    <button onclick="showStudents()">Show Transcript</button>
+    <button onclick="addStudent()">Add Student</button>
+    <button onclick="deleteStudent()">Delete Student</button>
+    <p id="output"></p>
+
+<script>
+    let students = [
+    { name: "Mehina", id: "22100811", level: "4", subjects: { Math: 100, Web: 100, Physics: 100, Programming: 100, Networks: 100 } },
+    { name: "Ziad hossam", id: "22100793", level: "4", subjects: { Math: 0, Web: 0, Physics: 0, Programming: 0, Networks: 0 } },
+    { name: "Omar Hassan", id: "22100100", level: "3", subjects: { Math: 72, Web: 80, Physics: 77, Programming: 70, Networks: 75 } },
+    { name: "Laila Samir", id: "22100200", level: "1", subjects: { Math: 88, Web: 84, Physics: 82, Programming: 86, Networks: 89 } },
+    { name: "Mona Adel", id: "22100300", level: "2", subjects: { Math: 90, Web: 92, Physics: 85, Programming: 89, Networks: 94 } }
+    ];
+
+
+
+
+    function showStudents() {
+      let output = `
+        <table border="1" cellspacing="0" cellpadding="8">
+          <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Level</th>
+            <th>Math</th>
+            <th>Web</th>
+            <th>Physics</th>
+            <th>Programming</th>
+            <th>Networks</th>
+          </tr>
+      `;
+
+      for (let i = 0; i < students.length; i++) {
+        let s = students[i];
+        output += `
+          <tr>
+            <td>${s.name}</td>
+            <td>${s.id}</td>
+            <td>${s.level}</td>
+            <td>${s.subjects.Math}</td>
+            <td>${s.subjects.Web}</td>
+            <td>${s.subjects.Physics}</td>
+            <td>${s.subjects.Programming}</td>
+            <td>${s.subjects.Networks}</td>
+          </tr>
+        `;
+      }
+
+      output += "</table>";
+      document.getElementById("output").innerHTML = output;
+    }
+
+
+
+
+
+
+function addStudent() {
+    let name = prompt("Enter student name:");
+    let id = prompt("Enter student ID:");
+
+    if (!/^\d{8}$/.test(id)) {
+        alert("ID must be exactly 8 digits!");
+        return; 
+    }
+
+    let exist = students.some(student => student.id === id);
+    if(exist){
+        alert("This ID is already used");
+        return;
+    }else{
+        let level = prompt("Enter student level:");
+        students.push({ name: name, id: id, level: level });
+        alert("Student added!");
+    }
+}
+
+
+
+    function deleteStudent() {
+        let id = prompt("Enter the ID of the student to delete:");
+        let index = students.findIndex(student => student.id === id);
+
+        if (index !== -1) {
+            students.splice(index, 1);
+            alert("Student deleted successfully!");
+            showStudents();
+        } else {
+        alert("Student not found!");
+        }
+    }
+
+
+
+</script>
+
+</body>
+</html>

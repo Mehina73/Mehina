@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Company Products</title>
+<style>
+    td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+    tr:hover {background-color: #ddd;}
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    table img {
+    width: 80px;       /* عرض الصورة */
+    height: 80px;      /* ارتفاع الصورة */
+    border-radius: 5px; /* اختياري: حواف مدورة */
+    }
+
+
+button {
+    background-color: #04AA6D;   
+    color: white;                
+    border-radius: 8px;          
+    padding: 10px 20px;        
+    margin: 5px;                 
+}
+
+
+button:hover {
+    background-color: #038d5a;    
+}
+</style>
+</head>
+<body>
+
+<h2>Company Products</h2>
+
+<button onclick="addProduct()">Add Product</button>
+<button onclick="deleteProduct()">Delete Product</button>
+
+
+<table id="productTable">
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Price ($)</th>
+    <th>Image</th>
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+<script>
+let products = [
+  { name: "Laptop", id: "P001", price: 1200, img: "laptop.jpg" },
+  { name: "Phone", id: "P002", price: 800, img: "smartphone.png" },
+  { name: "Headphones", id: "P003", price: 150, img: "headset.png" },
+  { name: "Monitor", id: "P004", price: 300, img: "monitor.png" },
+  { name: "Keyboard", id: "P005", price: 50, img: "keyboard.png" }
+];
+
+function updateTable() {
+  let table = document.getElementById("productTable");
+  
+  table.innerHTML = `
+    <tr>
+      <th>Name</th>
+      <th>ID</th>
+      <th>Price ($)</th>
+      <th>Image</th>
+    </tr>
+  `;
+
+  for (let p of products) {
+    let row = table.insertRow();
+    row.insertCell(0).innerText = p.name;
+    row.insertCell(1).innerText = p.id;
+    row.insertCell(2).innerText = p.price;
+    let imgCell = row.insertCell(3);
+    let img = document.createElement("img");
+    img.src = p.img;
+    img.alt = p.name;
+    imgCell.appendChild(img);
+  }
+}
+
+updateTable();
+
+function addProduct() {
+  let name = prompt("Enter product name:");
+  if (name === null) return;
+
+  let id = prompt("Enter product ID:");
+  if (id === null) return;
+
+  if (products.some(p => p.id === id)) {
+    alert("This ID is already used!");
+    return;
+  }
+
+  let price = prompt("Enter product price:");
+  if (price === null) return;
+
+  let img = prompt("Enter product image URL (or leave empty for placeholder):") || "https://via.placeholder.com/80";
+
+  products.push({ name: name, id: id, price: parseFloat(price), img: img });
+  alert("Product added!");
+
+  updateTable();
+
+}
+
+function deleteProduct() {
+  let id = prompt("Enter the ID of the product to delete:");
+  if (id === null) return;
+
+  let index = products.findIndex(p => p.id === id);
+  if (index !== -1) {
+    products.splice(index, 1);
+    alert("Product deleted successfully!");
+    showProducts();
+  } else {
+    alert("Product not found!");
+  }
+
+  updateTable();
+
+}
+</script>
+
+</body>
+</html>

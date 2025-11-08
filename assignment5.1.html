@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 5.1</title>
+
+    
+</head>
+<body>
+    
+<h4>Name: Mohamed Mehina</h4>
+<h4>ID: 22100811</h4>
+
+<p>Enter Number 1: <input type="number" id="number1"> </p>
+<p>Enter Number 2: <input type="number" id="number2"> </p>
+
+<select id="selector">
+    <option value="Add"> + </option>
+    <option value="Sub"> - </option>
+    <option value="Mult"> * </option>
+    <option value="Div"> / </option>
+</select>
+
+<button onclick="calculate()">Calculate</button>
+<p id="result"></p>
+
+
+<script>
+    function calculate(){
+        let n1 = parseFloat(document.getElementById("number1").value);
+        let n2 = parseFloat(document.getElementById("number2").value);
+        let op = document.getElementById("selector").value;
+        let res;
+
+        if(isNaN(n1) || isNaN(n2)){
+            document.getElementById("result").innerText = "Please Enter Values";
+            return;
+        }
+
+        switch (op){
+            case "Add":
+                res = n1 + n2;
+                break;
+
+            case "Sub":
+                res = n1 - n2;
+                break;
+
+            case "Mult":
+                res = n1 * n2;
+                break;
+
+            case "Div":
+                res = n1 / n2;
+                break;
+        }
+
+        document.getElementById("result").innerText = "Result: " + res ;
+    }
+
+
+</script>
+
+</body>
+</html>

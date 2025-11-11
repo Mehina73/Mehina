@@ -121,6 +121,7 @@ function addStudent() {
         let level = prompt("Enter student level:");
         students.push({ name: name, id: id, level: level });
         alert("Student added!");
+        showStudents();
     }
 }
 
@@ -135,7 +136,8 @@ function addStudent() {
             alert("Student deleted successfully!");
             showStudents();
         } else {
-        alert("Student not found!");
+            alert("Student not found!");
+            showStudents();
         }
     }
 
@@ -145,3 +147,4 @@ function addStudent() {
 
 </body>
 </html>
+
